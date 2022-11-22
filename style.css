@@ -28,6 +28,9 @@ body {
   border-bottom: 4px solid #EBEBEB;
   border-left: 4px solid #9E9E9E;
   border-right: 4px solid #EBEBEB;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden; 
 }
 .history {
   font-size: 24px;
@@ -43,7 +46,6 @@ body {
   margin: 0;
   margin-right: 20px;
   margin-top: -10px;
-
 }
 .clear, .del {
   font-size: 40px;
@@ -100,6 +102,17 @@ body {
 .evaluate {
   width: 48%;
   height: 16%;
+}
+button:hover {
+  background-color: #cacaca
+}
+button:active {
+  border-top: 4px solid rgb(160, 160, 160);
+  border-bottom: 4px solid #3b3b3b;
+  border-left: 4px solid rgb(160, 160, 160);
+  border-right: 4px solid #3b3b3b;
+  background-color: #7D7D7D;
+  transform: translateY(4px);
 }
 @media only screen and (max-width: 768px) {
   .clear, .del, .toggle {

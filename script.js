@@ -3,43 +3,53 @@ let equation = {
   sign: undefined,
   b: undefined
 };
+
+const audio = document.getElementById("press");
+const numbers = document.querySelectorAll(".number");
+const operator = document.querySelectorAll(".operator");
+const evaluate = document.querySelector(".evaluate");
+const clear = document.querySelector(".clear");
+const del = document.querySelector(".del");
+const toggle = document.querySelector(".toggle");
+let inputs = "";
+let repeat = false;
+let isKey = false;
+
+window.addEventListener("keydown", handleKeyboardInput);
+
+numbers.forEach(e => e.addEventListener("click", addNumber))
+
+operator.forEach(e => e.addEventListener("click", addOperator));
+
+evaluate.addEventListener("click", answer);
+
+clear.addEventListener("click", clearAll);
+
+del.addEventListener("click", removeEntry);
+
+toggle.addEventListener("click", changeSign);
+
 function add(a, b) {
   return a + b;
 }
+
 function subtract(a, b) {
   return a - b;
 }
+
 function multiply(a, b) {
   return a * b;
 }
+
 function divide(a , b) {
   return a / b;
 }
 
-let inputs = "";
-let repeat = false;
-
-function operate(a, operator, b) {
-  intA = parseFloat(a);
-  intB = parseFloat(b);
-  if(operator === "+") {
-    return add(intA, intB);
-  } else if(operator === "-") {
-    return subtract(intA, intB);
-  } else if(operator === "*") {
-    return multiply(intA, intB);
-  } else {
-    if(intB === 0) {
-      return "💀"
-    } else {
-      return divide(intA, intB);
-    }
-
-  }
-}
-
-const numbers = document.querySelectorAll(".number");
-numbers.forEach(e => e.addEventListener("click", e => {
+function addNumber(e) {
+  console.log("help");
+  console.log(e)
+  audio.currentTime = 0;
+  audio.play();
   if(repeat) {
     repeat = false;
     equation.b = undefined;
@@ -50,7 +60,13 @@ numbers.forEach(e => e.addEventListener("click", e => {
     equation.a = "0";
     inputs = "";
   }
-  let number = e.target.id;
+  let number;
+  if(isKey) {
+    number = String(e);
+  } else {
+    number = e.target.id;
+  }
+  isKey = false;
   if((equation.a === "0") && (equation.sign === undefined)) {
     if(number === ".") {
       equation.a = "0" + number;
@@ -80,17 +96,24 @@ numbers.forEach(e => e.addEventListener("click", e => {
     inputs += number;
     document.querySelector(".display").innerHTML += number;
   }
-}));
-const operator = document.querySelectorAll(".operator");
-operator.forEach(e => e.addEventListener("click", e => {
+}
+
+function addOperator(e) {
+  audio.currentTime = 0;
+  audio.play();
   if(repeat) {
     repeat = false;
     equation.b = undefined;
     equation.sign = undefined;
     inputs = equation.a;
   }
-  
-  let sign = e.target.id
+  let sign;
+  if(isKey) {
+    sign = String(e);
+  } else {
+    sign = e.target.id;
+  }
+  isKey = false;
   if(inputs === "💀") {
     inputs = "";
     document.querySelector(".display").innerHTML = "0";
@@ -106,12 +129,13 @@ operator.forEach(e => e.addEventListener("click", e => {
     inputs+=sign;
     document.querySelector(".display").innerHTML += sign;
   }
-}));
+}
 
-const evaluate = document.querySelector(".evaluate");
-evaluate.addEventListener("click", e => {
-  console.log(inputs)
+function answer(e) {
+  audio.currentTime = 0;
+  audio.play();
   repeat = true;
+  isKey = false;
   if((equation.sign === undefined) && (equation.b === undefined)) {
     inputs = equation.a;
     document.querySelector(".history").innerHTML = inputs;
@@ -119,25 +143,22 @@ evaluate.addEventListener("click", e => {
   } else {
     inputs = equation.a + equation.sign + equation.b;
     document.querySelector(".history").innerHTML = inputs;
-    document.querySelector(".display").innerHTML = operate(equation.a, equation.sign, equation.b);
-    equation.a = String(operate(equation.a, equation.sign, equation.b));
+    let temp = parseFloat(operate(equation.a, equation.sign, equation.b).toFixed(5));
+    if(temp > 999999999999 || temp < -999999999999) {
+      document.querySelector(".display").innerHTML = temp.toExponential(2);
+      equation.a = String(temp.toExponential(2));
+    } else {
+      document.querySelector(".display").innerHTML = temp;
+      equation.a = String(temp);
+    }
+    
   }
-});
+}
 
-const clear = document.querySelector(".clear");
-clear.addEventListener("click", e => {
-  equation = {
-    a: "0",
-    sign: undefined,
-    b: undefined
-  };
-  inputs = "";
-  document.querySelector(".history").innerHTML = "";
-  document.querySelector(".display").innerHTML = "0";
-});
-
-const del = document.querySelector(".del");
-del.addEventListener("click", e => {
+function removeEntry(e) {
+  audio.currentTime = 0;
+  audio.play();
+  isKey = false;
   if(repeat) {
     repeat = false;
     equation.b = undefined;
@@ -168,9 +189,44 @@ del.addEventListener("click", e => {
     inputs = inputs.slice(0, -1);
     document.querySelector(".display").innerHTML = inputs;
   }
-});
-const toggle = document.querySelector(".toggle");
-toggle.addEventListener("click", e => {
+}
+
+function clearAll(e) {
+  audio.currentTime = 0;
+  audio.play();
+  isKey = false;
+  equation = {
+    a: "0",
+    sign: undefined,
+    b: undefined
+  };
+  inputs = "";
+  document.querySelector(".history").innerHTML = "";
+  document.querySelector(".display").innerHTML = "0";
+}
+
+function operate(a, operator, b) {
+  intA = parseFloat(a);
+  intB = parseFloat(b);
+  if(operator === "+") {
+    return add(intA, intB);
+  } else if(operator === "-") {
+    return subtract(intA, intB);
+  } else if(operator === "*") {
+    return multiply(intA, intB);
+  } else {
+    if(intB === 0) {
+      return "💀"
+    } else {
+      return divide(intA, intB);
+    }
+
+  }
+}
+
+function changeSign(e) {
+  audio.currentTime = 0;
+  audio.play();
   if(repeat) {
     repeat = false;
     equation.b = undefined;
@@ -194,4 +250,25 @@ toggle.addEventListener("click", e => {
     inputs = equation.a + equation.sign + equation.b;
     document.querySelector(".display").innerHTML = inputs;
   }
-});
+}
+
+function handleKeyboardInput(e) {
+  isKey = true;
+  if (e.key >= 0 && e.key <= 9) {
+    addNumber(e.key);
+  }
+  if (e.key === '.') {
+    addNumber(e.key);
+  }
+  if (e.key === '=' || e.key === 'Enter') {
+    answer(e);
+  }
+  if (e.key === 'Backspace') {
+    removeEntry(e);
+  }
+  if (e.key === 'Escape') {
+    clearAll(e);
+  }
+  if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/')
+    addOperator(e.key);
+}
