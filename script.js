@@ -163,7 +163,7 @@ function answer(e) {
     if(operate(equation.a, equation.sign, equation.b) === "💀") {
       temp = operate(equation.a, equation.sign, equation.b);
     } else {
-      temp = parseFloat(operate(equation.a, equation.sign, equation.b).toFixed(10));
+      temp = parseFloat(operate(equation.a, equation.sign, equation.b).toFixed(5));
     }
     if(temp > 999999999999 || temp < -999999999999) {
       document.querySelector(".display").innerHTML = temp.toExponential(2);
