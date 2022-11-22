@@ -45,6 +45,25 @@ function divide(a , b) {
   return a / b;
 }
 
+function operate(a, operator, b) {
+  intA = parseFloat(a);
+  intB = parseFloat(b);
+  if(operator === "+") {
+    return add(intA, intB);
+  } else if(operator === "-") {
+    return subtract(intA, intB);
+  } else if(operator === "*") {
+    return multiply(intA, intB);
+  } else if(operator === "/") {
+    if(intB === 0) {
+      console.log("what")
+      return "💀";
+    } else {
+      return divide(intA, intB);
+    }
+  }
+}
+
 function addNumber(e) {
   console.log("help");
   console.log(e)
@@ -143,7 +162,12 @@ function answer(e) {
   } else {
     inputs = equation.a + equation.sign + equation.b;
     document.querySelector(".history").innerHTML = inputs;
-    let temp = parseFloat(operate(equation.a, equation.sign, equation.b).toFixed(5));
+    let temp;
+    if(operate(equation.a, equation.sign, equation.b) === "💀") {
+      temp = operate(equation.a, equation.sign, equation.b);
+    } else {
+      temp = parseFloat(operate(equation.a, equation.sign, equation.b).toFixed(10));
+    }
     if(temp > 999999999999 || temp < -999999999999) {
       document.querySelector(".display").innerHTML = temp.toExponential(2);
       equation.a = String(temp.toExponential(2));
@@ -205,24 +229,7 @@ function clearAll(e) {
   document.querySelector(".display").innerHTML = "0";
 }
 
-function operate(a, operator, b) {
-  intA = parseFloat(a);
-  intB = parseFloat(b);
-  if(operator === "+") {
-    return add(intA, intB);
-  } else if(operator === "-") {
-    return subtract(intA, intB);
-  } else if(operator === "*") {
-    return multiply(intA, intB);
-  } else {
-    if(intB === 0) {
-      return "💀"
-    } else {
-      return divide(intA, intB);
-    }
 
-  }
-}
 
 function changeSign(e) {
   audio.currentTime = 0;
@@ -257,18 +264,18 @@ function handleKeyboardInput(e) {
   if (e.key >= 0 && e.key <= 9) {
     addNumber(e.key);
   }
-  if (e.key === '.') {
+  if (e.key === ".") {
     addNumber(e.key);
   }
-  if (e.key === '=' || e.key === 'Enter') {
+  if (e.key === '=' || e.key === "Enter") {
     answer(e);
   }
-  if (e.key === 'Backspace') {
+  if (e.key === "Backspace") {
     removeEntry(e);
   }
-  if (e.key === 'Escape') {
+  if (e.key === "Escape") {
     clearAll(e);
   }
-  if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/')
+  if (e.key === "+" || e.key === "-" || e.key === "*" || e.key === "\/")
     addOperator(e.key);
 }
