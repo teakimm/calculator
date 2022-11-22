@@ -2,22 +2,27 @@
   src: url(fonts/VPPixel-Simplified.otf);
   font-family: pixel;
 }
-* {
 
+* {
+  box-sizing: border-box;
   font-family: pixel;
   font-size: 48px;
 }
 body {
-  background-color: #63C4B2;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background-color: #63C4B2;
 }
 .screen {
   display: flex;
   flex-direction: column;
+  justify-content: end;
   align-items: flex-end;
-  height: auto;
+  width: 90%;
+  height: 20%;
   background-color: white;
+  margin-top: 15px;
   margin-bottom: 32px;
   border-top: 4px solid #9E9E9E;
   border-bottom: 4px solid #EBEBEB;
@@ -25,9 +30,6 @@ body {
   border-right: 4px solid #EBEBEB;
 }
 .history {
-  text-align: end;
-  width: 97px;
-  height: 35px;
   font-size: 24px;
   margin: 0;
   margin-top: 10px;
@@ -53,33 +55,57 @@ body {
   align-items: center;
   background-color: #D9D9D9;
   font-weight: 400;
-  border-top: 8px solid white;
   border-bottom: 8px solid #9E9E9E;
   border-left: 8px solid white;
   border-right: 8px solid #9E9E9E;
-  max-width: 600px;
-  max-height: 800px;
-  flex: 1;
+  width: 500px;
+  height: 650px;
+  max-width: 95vmin;
+  max-height: 90vmax;
+}
+.bar {
+  margin-top: 50px;
+  padding-left: 15px;
+  width: 500px;
+  max-width: 95vmin;
+  max-height: 90vmax;
+  font-size: 25px;
+  background-color: #7D7D7D;
+  border-top: 8px solid white;
+  border-right: 8px solid #9E9E9E;
+  border-left: 8px solid white;
 }
 .button-container {
+  width: 90%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  width: 25vw;
-  height: 60vh;
+  text-align: center;
+
 }
 
-.evaluate {
-  width: 227px;
-  height: 80px;
-}
-button {
-  width: 100px;
-  height: 80px;
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 22%;
+  height: 16%;
   background-color: #D9D9D9;
   border-top: 4px solid white;
   border-bottom: 4px solid #9E9E9E;
   border-left: 4px solid white;
-  border-right: 4px solid #9E9E9E;  
+  border-right: 4px solid #9E9E9E;
+}
+.evaluate {
+  width: 48%;
+  height: 16%;
+}
+@media only screen and (max-width: 768px) {
+  .clear, .del, .toggle {
+    font-size: 30px;
+  }
+  .bar{
+    margin-top: 0px;
+  }
 }
