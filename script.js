@@ -35,12 +35,10 @@ toggle.addEventListener("click", changeSign);
 img.addEventListener("click", e => {
   if(!isMuted) {
     isMuted = true;
-    console.log(isMuted)
-    img.src= "./images/mute.png";
+    img.src= "https://thenounproject.com/api/private/icons/228608/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0&token=gAAAAABjfWHOGj9ag9LuTVTseWUWT16oWRi4PmCtLuSQ5U5gbyvyx2nPTPGr_nwY7icyA5DZ3WHvmXYgqgbVODglqBPtleChAg%3D%3D";
   } else {
     isMuted = false;
-    console.log(isMuted)
-    img.src="./images/unmute.png";
+    img.src="https://thenounproject.com/api/private/icons/228603/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0&token=gAAAAABjfWHOGj9ag9LuTVTseWUWT16oWRi4PmCtLuSQ5U5gbyvyx2nPTPGr_nwY7icyA5DZ3WHvmXYgqgbVODglqBPtleChAg%3D%3D";
   }
 
 });
