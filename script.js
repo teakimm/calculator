@@ -11,9 +11,12 @@ const evaluate = document.querySelector(".evaluate");
 const clear = document.querySelector(".clear");
 const del = document.querySelector(".del");
 const toggle = document.querySelector(".toggle");
+const img = document.querySelector(".mute");
+
 let inputs = "";
 let repeat = false;
 let isKey = false;
+let isMuted = false;
 
 window.addEventListener("keydown", handleKeyboardInput);
 
@@ -28,6 +31,19 @@ clear.addEventListener("click", clearAll);
 del.addEventListener("click", removeEntry);
 
 toggle.addEventListener("click", changeSign);
+
+img.addEventListener("click", e => {
+  if(!isMuted) {
+    isMuted = true;
+    console.log(isMuted)
+    img.src= "/images/mute.png";
+  } else {
+    isMuted = false;
+    console.log(isMuted)
+    img.src="/images/unmute.png";
+  }
+
+});
 
 function add(a, b) {
   return a + b;
@@ -64,8 +80,10 @@ function operate(a, operator, b) {
 }
 
 function addNumber(e) {
-  audio.currentTime = 0;
-  audio.play();
+  if(!isMuted) {
+    audio.currentTime = 0;
+    audio.play();
+  }
   if(repeat) {
     repeat = false;
     equation.b = undefined;
@@ -119,8 +137,10 @@ function addNumber(e) {
 }
 
 function addOperator(e) {
-  audio.currentTime = 0;
-  audio.play();
+  if(!isMuted) {
+    audio.currentTime = 0;
+    audio.play();
+  }
   if(repeat) {
     repeat = false;
     equation.b = undefined;
@@ -152,8 +172,10 @@ function addOperator(e) {
 }
 
 function answer(e) {
-  audio.currentTime = 0;
-  audio.play();
+  if(!isMuted) {
+    audio.currentTime = 0;
+    audio.play();
+  }
   repeat = true;
   isKey = false;
   if((equation.sign === undefined) && (equation.b === undefined)) {
@@ -181,8 +203,10 @@ function answer(e) {
 }
 
 function removeEntry(e) {
-  audio.currentTime = 0;
-  audio.play();
+  if(!isMuted) {
+    audio.currentTime = 0;
+    audio.play();
+  }
   isKey = false;
   if(repeat) {
     repeat = false;
@@ -217,8 +241,10 @@ function removeEntry(e) {
 }
 
 function clearAll(e) {
-  audio.currentTime = 0;
-  audio.play();
+  if(!isMuted) {
+    audio.currentTime = 0;
+    audio.play();
+  }
   isKey = false;
   equation = {
     a: "0",
@@ -233,8 +259,10 @@ function clearAll(e) {
 
 
 function changeSign(e) {
-  audio.currentTime = 0;
-  audio.play();
+  if(!isMuted) {
+    audio.currentTime = 0;
+    audio.play();
+  }
   if(repeat) {
     repeat = false;
     equation.b = undefined;
@@ -261,6 +289,10 @@ function changeSign(e) {
 }
 
 function handleKeyboardInput(e) {
+  if(!isMuted) {
+    audio.currentTime = 0;
+    audio.play();
+  }
   isKey = true;
   if (e.key >= 0 && e.key <= 9) {
     addNumber(e.key);
