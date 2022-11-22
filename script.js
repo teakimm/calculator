@@ -94,9 +94,11 @@ function addNumber(e) {
       document.querySelector(".display").innerHTML = number;
     }
   } else if((equation.a != undefined) && (equation.sign === undefined)) {
-    equation.a += number;
-    inputs += number;
-    document.querySelector(".display").innerHTML += number;
+    if(!((number === ".") && (equation.a.indexOf(".") > -1))) {
+      equation.a += number;
+      inputs += number;
+      document.querySelector(".display").innerHTML += number;
+    }
   } else if((equation.sign != undefined) && (equation.a != undefined) && (equation.b === undefined)) {
     if(number === ".") {
       equation.b = "0" + number;
@@ -108,9 +110,11 @@ function addNumber(e) {
       document.querySelector(".display").innerHTML += number;
     }
   } else {
-    equation.b += number;
-    inputs += number;
-    document.querySelector(".display").innerHTML += number;
+    if(!((number === ".") && (equation.b.indexOf(".") > -1))) {
+      equation.b += number;
+      inputs += number;
+      document.querySelector(".display").innerHTML += number;
+    }
   }
 }
 
