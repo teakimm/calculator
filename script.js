@@ -56,7 +56,6 @@ function operate(a, operator, b) {
     return multiply(intA, intB);
   } else if(operator === "/") {
     if(intB === 0) {
-      console.log("what")
       return "💀";
     } else {
       return divide(intA, intB);
@@ -65,8 +64,6 @@ function operate(a, operator, b) {
 }
 
 function addNumber(e) {
-  console.log("help");
-  console.log(e)
   audio.currentTime = 0;
   audio.play();
   if(repeat) {
