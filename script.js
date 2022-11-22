@@ -36,11 +36,11 @@ img.addEventListener("click", e => {
   if(!isMuted) {
     isMuted = true;
     console.log(isMuted)
-    img.src= "/images/mute.png";
+    img.src= "./images/mute.png";
   } else {
     isMuted = false;
     console.log(isMuted)
-    img.src="/images/unmute.png";
+    img.src="./images/unmute.png";
   }
 
 });
