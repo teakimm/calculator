@@ -89,9 +89,12 @@ operator.forEach(e => e.addEventListener("click", e => {
     equation.sign = undefined;
     inputs = equation.a;
   }
-
+  
   let sign = e.target.id
-  if((equation.a != undefined) && (equation.sign === undefined)) {
+  if(inputs === "💀") {
+    inputs = "";
+    document.querySelector(".display").innerHTML = "0";
+  } else if((equation.a != undefined) && (equation.sign === undefined)) {
     equation.sign = sign;
     inputs += sign;
     document.querySelector(".display").innerHTML += sign;
@@ -141,7 +144,7 @@ del.addEventListener("click", e => {
     equation.sign = undefined;
     inputs = equation.a;
   }
-  if(inputs === "💀") {
+  if(inputs === "💀" || inputs == "NaN") {
     inputs = "";
     document.querySelector(".display").innerHTML = "0";
   } else if((equation.a.length === 1) && (equation.sign === undefined) && (equation.b === undefined)) {
